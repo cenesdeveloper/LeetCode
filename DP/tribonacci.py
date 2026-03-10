@@ -1,0 +1,12 @@
+class Solution:
+    def tribon(self, n: int) -> int:
+        memo = {0:0, 1:1, 2:1}
+
+        def dp(i):
+            if i in memo:
+                return memo[i]
+            
+            ans = dp(i-1) + dp(i-2) + dp(i-3)
+            memo[i] = ans
+            return ans
+        return dp(n)
