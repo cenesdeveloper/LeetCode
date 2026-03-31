@@ -1,19 +1,27 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        leftMin = 0
-        leftMax = 0
+        """
+        Solution
+        1 - Use two pointers one starts from 0 other starts form len(s) - 1
+        2 - we keep track of open brackets and close brackets and asterisks
+        3 - from left to right if we see openbracket or asterisk we increase and if close bracket we decrement and do the same thing from right side
+        4 - if at any point open bracket or close bracket becomes negative we conclude invalid as it means there is extra of one that is unmatched
+        5 - if we finish the loop it means all are matched we can return True
+        """
 
-        for c in s:
-            if c == "(":
-                leftMin, leftMax = leftMin + 1, leftMax + 1
-            elif c == ")":
-                leftMin, leftMax = leftMin - 1, leftMax - 1
+        openb = closeb = 0
+
+        for i in range(len(s)):
+            if s[i] == "(" or s[i] == "*":
+                openb += 1
             else:
-                leftMin, leftMax = leftMin - 1, leftMax + 1
+                openb -= 1
             
-            if leftMax < 0:
+            if s[len(s) - i - 1] == ")" or s[len(s) - i - 1] == "*":
+                closeb += 1
+            else:
+                closeb -= 1
+
+            if openb < 0 or closeb < 0:
                 return False
-            
-            if leftMin < 0:
-                leftMin = 0
-        return leftMin == 0
+        return True
