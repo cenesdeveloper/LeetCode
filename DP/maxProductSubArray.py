@@ -8,10 +8,12 @@ class Solution:
         3 - when calculating min use pre calculation of max for that loop
         4 - keep track of max of res and maxseen
         """
+        if not len(nums):
+            return 0
 
-        res, maxs, mins = 0, 0, 0
+        res, maxs, mins = nums[0], nums[0], nums[0]
 
-        for i in range(len(nums)):
+        for i in range(1, len(nums)):
             temp = maxs
 
             maxs = max(maxs * nums[i], mins * nums[i], nums[i])
